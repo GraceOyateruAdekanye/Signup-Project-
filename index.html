@@ -12,7 +12,7 @@
             <h1>Join the Groove</h1>
             <h2>Ready to dance, whirl, and frolic around the legendary disco?</h2>
             <p>Step into the rhythm and create your account to get started!</p>
-            <form action="https://formsubmit.co/graceoyateru2@gmail.com" method="post">
+            <form>
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" placeholder="Enter your username" required>
 
@@ -34,7 +34,6 @@
                 <label for="confirm_password">Confirm Password</label>
                 <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
 
-                <input type="hidden" name="_captcha" value="false">
                 <button type="submit">Sign Up</button>
             </form>
             
@@ -58,6 +57,31 @@
             } else {
                 this.setCustomValidity('');
             }
+        });
+
+        // Store user data on signup (simulating account creation)
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const username = document.getElementById('username').value;
+
+            // Store user data in localStorage
+            const storedUsers = JSON.parse(localStorage.getItem('prankUsers') || '[]');
+            const userExists = storedUsers.some(u => u.email === email);
+
+            if (!userExists) {
+                storedUsers.push({
+                    email: email,
+                    password: password,
+                    username: username,
+                    signupDate: new Date().toISOString()
+                });
+                localStorage.setItem('prankUsers', JSON.stringify(storedUsers));
+            }
+
+            // Redirect to home.html with email parameter for personalization
+            e.preventDefault();
+            window.location.href = `home.html?email=${encodeURIComponent(email)}`;
         });
     </script>
 </body>

@@ -12,7 +12,7 @@
             <h1>Welcome Back to the Groove</h1>
             <h2>Ready to continue your disco adventure?</h2>
             <p>Log in to your account and keep the rhythm going!</p>
-            <form action="#" method="post">
+            <form>
                 <label for="email">Email Address</label>
                 <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
@@ -32,11 +32,23 @@
     </div>
 
     <script>
-        // Add any login-specific JavaScript here
+        // Simulate login verification using localStorage (since we can't access FormSubmit data)
         document.querySelector('form').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Add your login logic here
-            alert('Login functionality would be implemented here with backend authentication.');
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Check if user data exists in localStorage (simulating signup data)
+            const storedUsers = JSON.parse(localStorage.getItem('prankUsers') || '[]');
+            const user = storedUsers.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                // "Successful" login - redirect to prank page with user info
+                window.location.href = `home.html?email=${encodeURIComponent(email)}`;
+            } else {
+                alert('❌ Invalid email or password! Did you sign up first? 🤔\n\n(Hint: Try signing up on the main page first!)');
+            }
         });
     </script>
 </body>

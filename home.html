@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .prank-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #375a7f 0%, #4f7cae 100%);
+            color: white;
+        }
+
+        .prank-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            animation: none;
+        }
+
+        .prank-message {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            max-width: 680px;
+        }
+
+        .emoji-rain {
+            font-size: 2rem;
+            margin: 20px 0;
+            letter-spacing: 0.35rem;
+            opacity: 0.9;
+            animation: none;
+        }
+
+        .laughing-emojis {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+        }
+
+        .laughing-emojis span {
+            font-size: 2.2rem;
+            animation: none;
+            opacity: 0.92;
+        }
+
+        .sticker-section {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .sticker {
+            font-size: 2.5rem;
+            margin: 0 10px;
+            animation: none;
+            opacity: 0.95;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .prank-button {
+            background: #2c7be5;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+        }
+
+        .prank-button:hover {
+            background: #2468c1;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="prank-container">
+        <h1 class="prank-title">Notice</h1>
+
+        <div class="emoji-rain">✨ ✅</div>
+
+        <p class="prank-message">
+            This page was intentionally created as a playful prank. <br>
+            Your time was not lost—consider it part of the experience. <br>
+            Thank you for visiting, and feel free to try again.
+        </p>
+
+        <div id="user-info" style="display: none; margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.15); border-radius: 10px;">
+            <p id="user-greeting"></p>
+        </div>
+
+        <div class="laughing-emojis">
+            <span>✅</span>
+            <span>✨</span>
+            <span>📩</span>
+            <span>📝</span>
+            <span>📌</span>
+            <span>🔒</span>
+        </div>
+
+        <div class="sticker-section">
+            <div class="sticker">✅</div>
+            <div class="sticker">📎</div>
+            <div class="sticker">🗂️</div>
+            <div class="sticker">📁</div>
+        </div>
+
+        <button class="prank-button" onclick="goBack()">Return to Signup</button>
+    </div>
+
+    <script>
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // Check for user data and personalize the prank
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const storedUsers = JSON.parse(localStorage.getItem('prankUsers') || '[]');
+
+            // Try to get user info from URL params (if coming from form) or find most recent user
+            let currentUser = null;
+
+            // Check URL params first
+            const email = urlParams.get('email');
+            if (email) {
+                currentUser = storedUsers.find(u => u.email === email);
+            }
+
+            // If no URL params, get the most recently signed up user
+            if (!currentUser && storedUsers.length > 0) {
+                currentUser = storedUsers[storedUsers.length - 1];
+            }
+
+            if (currentUser) {
+                document.getElementById('user-info').style.display = 'block';
+                document.getElementById('user-greeting').innerHTML =
+                    `Hey <strong>${currentUser.username}</strong>! 👋<br>` +
+                    `We totally got your email: <strong>${currentUser.email}</strong><br>` +
+                    `And we "stored" your password securely... or did we? 😉<br>` +
+                    `Signed up on: ${new Date(currentUser.signupDate).toLocaleDateString()}`;
+            }
+        });
+
+        // Add some extra fun with random emoji rain
+        setInterval(() => {
+            const emojis = ['🎭', '🤡', '🎪', '🎈', '🃏', '🎠', '🤣', '😂'];
+            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+            const emojiElement = document.createElement('div');
+            emojiElement.textContent = randomEmoji;
+            emojiElement.style.position = 'fixed';
+            emojiElement.style.left = Math.random() * 100 + 'vw';
+            emojiElement.style.top = '-50px';
+            emojiElement.style.fontSize = '2rem';
+            emojiElement.style.zIndex = '1000';
+            emojiElement.style.animation = 'fall 3s linear forwards';
+            document.body.appendChild(emojiElement);
+
+            setTimeout(() => {
+                document.body.removeChild(emojiElement);
+            }, 3000);
+        }, 500);
+
+        // Add falling animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
