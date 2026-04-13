@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login form">
+            <h1>Join the Groove</h1>
+            <h2>Ready to dance, whirl, and frolic around the legendary disco?</h2>
+            <p>Step into the rhythm and create your account to get started!</p>
+            <form action="https://formsubmit.co/graceoyateru2@gmail.com" method="post">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" placeholder="Enter your address" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" pattern="[0-9+\-\s\(\)]*" required>
+
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" placeholder="Enter your age" min="13" max="120" required>
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="password">Password</label>  
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+
+                <input type="hidden" name="_captcha" value="false">
+                <button type="submit">Sign Up</button>
+            </form>
+            
+            <div class="login-link">
+                <p>Already have an account? <a href="login.html">Log in here</a></p>
+            </div>
+        </div>
+        <div class="dance">
+            <img src="./gift-habeshaw-Etxf65FaTrs-unsplash.jpg" alt="Sign Up Image">
+        </div>
+    </div>
+
+    <script>
+        // Password confirmation validation
+        document.getElementById('confirm_password').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+
+            if (password !== confirmPassword) {
+                this.setCustomValidity('Passwords do not match');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+    </script>
+</body>
+</html>
