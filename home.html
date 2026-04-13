@@ -3,211 +3,284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notice</title>
+    <title>Club Nights</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        .prank-container {
+        body {
+            background: #070b16;
+            color: #eff2ff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .club-hero {
+            min-height: 90vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
-            text-align: center;
-            padding: 20px;
-            background: linear-gradient(135deg, #375a7f 0%, #4f7cae 100%);
-            color: white;
+            justify-content: center;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, rgba(7,11,22,0.95) 0%, rgba(7,11,22,0.8) 100%), url('./gift-habeshaw-Etxf65FaTrs-unsplash.jpg') center / cover no-repeat;
         }
-
-        .prank-title {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-            animation: none;
+        .club-inner {
+            width: min(1120px, 100%);
+            display: grid;
+            gap: 32px;
+            grid-template-columns: 1.1fr 0.9fr;
         }
-
-        .prank-message {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            line-height: 1.6;
-            max-width: 680px;
+        .hero-copy {
+            max-width: 580px;
         }
-
-        .emoji-rain {
-            font-size: 2rem;
-            margin: 20px 0;
-            letter-spacing: 0.35rem;
-            opacity: 0.9;
-            animation: none;
+        .hero-copy p.tagline {
+            text-transform: uppercase;
+            letter-spacing: 0.28em;
+            color: #ff7aa2;
+            margin-bottom: 18px;
+            font-weight: 700;
+            font-size: 0.85rem;
         }
-
-        .laughing-emojis {
+        .hero-copy h1 {
+            font-size: clamp(3rem, 4.2vw, 4.6rem);
+            line-height: 1.02;
+            margin: 0 0 24px;
+        }
+        .hero-copy p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #c2c7db;
+            margin-bottom: 32px;
+        }
+        .hero-actions {
             display: flex;
             flex-wrap: wrap;
+            gap: 16px;
+        }
+        .hero-actions a {
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin: 30px 0;
+            padding: 14px 28px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.2s ease, opacity 0.2s ease;
         }
-
-        .laughing-emojis span {
-            font-size: 2.2rem;
-            animation: none;
-            opacity: 0.92;
+        .hero-actions a.primary {
+            background: #ff4d6d;
+            color: white;
         }
-
-        .sticker-section {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
+        .hero-actions a.secondary {
+            background: rgba(255,255,255,0.08);
+            color: #f6f7ff;
+            border: 1px solid rgba(255,255,255,0.1);
         }
-
-        .sticker {
-            font-size: 2.5rem;
-            margin: 0 10px;
-            animation: none;
+        .hero-actions a:hover {
+            transform: translateY(-2px);
             opacity: 0.95;
         }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-30px); }
-            60% { transform: translateY(-15px); }
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(-3deg); }
-            50% { transform: rotate(3deg); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .prank-button {
-            background: #2c7be5;
-            color: white;
-            border: none;
-            padding: 15px 32px;
-            font-size: 1.1rem;
+        .hero-image {
             border-radius: 30px;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.35);
         }
-
-        .prank-button:hover {
-            background: #2468c1;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.65));
+        }
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .tickets-section {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 60px 20px 80px;
+        }
+        .tickets-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .tickets-header h2 {
+            font-size: clamp(2.2rem, 3vw, 3rem);
+            margin: 0;
+        }
+        .tickets-header p {
+            color: #b7bfd3;
+            max-width: 560px;
+            margin: 0;
+            line-height: 1.8;
+        }
+        .ticket-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+        .ticket-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 28px;
+            overflow: hidden;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .ticket-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,77,109,0.35);
+        }
+        .ticket-card .ticket-image {
+            aspect-ratio: 16 / 10;
+            width: 100%;
+            overflow: hidden;
+        }
+        .ticket-card .ticket-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .ticket-card .ticket-content {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .ticket-card .ticket-tag {
+            align-self: flex-start;
+            background: rgba(255,255,255,0.08);
+            color: #cbd2e4;
+            padding: 10px 16px;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        .ticket-card h3 {
+            margin: 0;
+            font-size: 1.6rem;
+        }
+        .ticket-card p {
+            margin: 0;
+            color: #bfc7db;
+            line-height: 1.8;
+            flex-grow: 1;
+        }
+        .ticket-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .ticket-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .ticket-card button {
+            padding: 14px 0;
+            min-width: 170px;
+            border: none;
+            border-radius: 999px;
+            background: #ff4d6d;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .ticket-card button:hover {
+            background: #e63f56;
+            transform: translateY(-2px);
+        }
+        @media (max-width: 960px) {
+            .club-inner {
+                grid-template-columns: 1fr;
+            }
+            .ticket-grid {
+                grid-template-columns: 1fr;
+            }
+            .ticket-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="prank-container">
-        <h1 class="prank-title">Notice</h1>
+    <section class="club-hero">
+        <div class="club-inner">
+            <div class="hero-copy">
+                <p class="tagline">Live Dance Parties</p>
+                <h1>Book your next night out with the hottest club party tickets.</h1>
+                <p>Experience premium nightlife with VIP access, lounge reservations, and group tables for unforgettable dance nights.</p>
+                <div class="hero-actions">
+                    <a href="#tickets" class="primary">View Tickets</a>
+                    <a href="login.html" class="secondary">Already booked?</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="./gift-habeshaw-Etxf65FaTrs-unsplash.jpg" alt="Club party scene">
+            </div>
+        </div>
+    </section>
 
-        <div class="emoji-rain">✨ ✅</div>
-
-        <p class="prank-message">
-            This page was intentionally created as a playful prank. <br>
-            Your time was not lost—consider it part of the experience. <br>
-            Thank you for visiting, and feel free to try again.
-        </p>
-
-        <div id="user-info" style="display: none; margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.15); border-radius: 10px;">
-            <p id="user-greeting"></p>
+    <section class="tickets-section" id="tickets">
+        <div class="tickets-header">
+            <div>
+                <h2>Choose your party ticket</h2>
+                <p>From classic floor passes to VIP tables, select the ticket that matches your vibe and book your spot for the next dance event.</p>
+            </div>
         </div>
 
-        <div class="laughing-emojis">
-            <span>✅</span>
-            <span>✨</span>
-            <span>📩</span>
-            <span>📝</span>
-            <span>📌</span>
-            <span>🔒</span>
-        </div>
+        <div class="ticket-grid">
+            <div class="ticket-card">
+                <div class="ticket-image"><img src="https://images.unsplash.com/photo-1515169067865-5387ec356754?auto=format&fit=crop&w=900&q=80" alt="Dance floor"></div>
+                <div class="ticket-content">
+                    <span class="ticket-tag">Floor Access</span>
+                    <h3>Classic Dance Pass</h3>
+                    <p>Entry to the main dance floor, two welcome drinks, and access to the full party experience.</p>
+                    <div class="ticket-footer">
+                        <span class="ticket-price">$25</span>
+                        <button onclick="bookTicket('Classic Dance Pass')">Book Now</button>
+                    </div>
+                </div>
+            </div>
 
-        <div class="sticker-section">
-            <div class="sticker">✅</div>
-            <div class="sticker">📎</div>
-            <div class="sticker">🗂️</div>
-            <div class="sticker">📁</div>
-        </div>
+            <div class="ticket-card">
+                <div class="ticket-image"><img src="https://images.unsplash.com/photo-1507979717156-2d7c7446e3b7?auto=format&fit=crop&w=900&q=80" alt="VIP area"></div>
+                <div class="ticket-content">
+                    <span class="ticket-tag">VIP Lounge</span>
+                    <h3>Premium VIP Ticket</h3>
+                    <p>Reserved lounge seating, bottle service, fast-track entry, and dedicated host support for your night.</p>
+                    <div class="ticket-footer">
+                        <span class="ticket-price">$75</span>
+                        <button onclick="bookTicket('Premium VIP Ticket')">Book Now</button>
+                    </div>
+                </div>
+            </div>
 
-        <button class="prank-button" onclick="goBack()">Return to Signup</button>
-    </div>
+            <div class="ticket-card">
+                <div class="ticket-image"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80" alt="Group celebration"></div>
+                <div class="ticket-content">
+                    <span class="ticket-tag">Group Pack</span>
+                    <h3>Group Party Pack</h3>
+                    <p>Bring the whole crew. Includes group discount, shared table, and VIP entry for up to 6 people.</p>
+                    <div class="ticket-footer">
+                        <span class="ticket-price">$180</span>
+                        <button onclick="bookTicket('Group Party Pack')">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script>
-        function goBack() {
-            window.location.href = 'index.html';
+        function bookTicket(ticket) {
+            alert('You selected: ' + ticket + '.\nThis page is a demo view, so booking is not live yet.');
         }
-
-        // Check for user data and personalize the prank
-        window.addEventListener('load', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const storedUsers = JSON.parse(localStorage.getItem('prankUsers') || '[]');
-
-            // Try to get user info from URL params (if coming from form) or find most recent user
-            let currentUser = null;
-
-            // Check URL params first
-            const email = urlParams.get('email');
-            if (email) {
-                currentUser = storedUsers.find(u => u.email === email);
-            }
-
-            // If no URL params, get the most recently signed up user
-            if (!currentUser && storedUsers.length > 0) {
-                currentUser = storedUsers[storedUsers.length - 1];
-            }
-
-            if (currentUser) {
-                document.getElementById('user-info').style.display = 'block';
-                document.getElementById('user-greeting').innerHTML =
-                    `Hey <strong>${currentUser.username}</strong>! 👋<br>` +
-                    `We totally got your email: <strong>${currentUser.email}</strong><br>` +
-                    `And we "stored" your password securely... or did we? 😉<br>` +
-                    `Signed up on: ${new Date(currentUser.signupDate).toLocaleDateString()}`;
-            }
-        });
-
-        // Add some extra fun with random emoji rain
-        setInterval(() => {
-            const emojis = ['🎭', '🤡', '🎪', '🎈', '🃏', '🎠', '🤣', '😂'];
-            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-            const emojiElement = document.createElement('div');
-            emojiElement.textContent = randomEmoji;
-            emojiElement.style.position = 'fixed';
-            emojiElement.style.left = Math.random() * 100 + 'vw';
-            emojiElement.style.top = '-50px';
-            emojiElement.style.fontSize = '2rem';
-            emojiElement.style.zIndex = '1000';
-            emojiElement.style.animation = 'fall 3s linear forwards';
-            document.body.appendChild(emojiElement);
-
-            setTimeout(() => {
-                document.body.removeChild(emojiElement);
-            }, 3000);
-        }, 500);
-
-        // Add falling animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fall {
-                to {
-                    transform: translateY(100vh);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>

